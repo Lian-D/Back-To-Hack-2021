@@ -1,6 +1,8 @@
 let http = require('http');
 const req = require('request');
 let mapsQuery = {};
+let dist = 0; //in km
+let duration = 0; // in hr
 
 function createAPIrequestURL(origin, destination, transportMode) {
     let urlOrigin = encodeURIComponent(origin).replace('%20', '+');
@@ -26,6 +28,8 @@ mapsQuery.get = (origin, destination, timeframe) => {
             try {
                 let data = JSON.parse(body);
                 console.log(data.routes[0].overview_polyline);
+                dist = data.routes[0].legs[0].distance.value/1000;
+                duration = data.routes[0].legs[0].duration.value/3600;
                 resolve(data);
             } catch (error) {
                 reject(error);
@@ -38,6 +42,8 @@ mapsQuery.get = (origin, destination, timeframe) => {
             try {
                 let data = JSON.parse(body);
                 console.log(data.routes[0].overview_polyline);
+                dist = data.routes[0].legs[0].distance.value/1000;
+                duration = data.routes[0].legs[0].duration.value/3600;
                 resolve(data);
             } catch (error) {
                 reject(error);
@@ -50,6 +56,8 @@ mapsQuery.get = (origin, destination, timeframe) => {
             try {
                 let data = JSON.parse(body);
                 console.log(data.routes[0].overview_polyline);
+                dist = data.routes[0].legs[0].distance.value/1000;
+                duration = data.routes[0].legs[0].duration.value/3600;
                 resolve(data);
             } catch (error) {
                 reject(error);
@@ -62,6 +70,8 @@ mapsQuery.get = (origin, destination, timeframe) => {
             try {
                 let data = JSON.parse(body);
                 console.log(data.routes[0].overview_polyline);
+                dist = data.routes[0].legs[0].distance.value/1000;
+                duration = data.routes[0].legs[0].duration.value/3600;
                 resolve(data);
             } catch (error) {
                 reject(error);
