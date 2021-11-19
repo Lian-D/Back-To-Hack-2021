@@ -1,6 +1,5 @@
 let http = require('http');
 const req = require('request');
-const creds = require("./mapsCred.json");
 let mapsQuery = {};
 
 function createAPIrequestURL(origin, destination, transportMode) {
@@ -8,7 +7,7 @@ function createAPIrequestURL(origin, destination, transportMode) {
     let urlDestination = encodeURIComponent(destination).replace('%20', '+');
     const creds = require('./mapsCred.json');
     console.log(creds.googleMapsKey);
-    let url = `https://maps.googleapis.com/maps/api/directions/json?origin=${urlOrigin}&destination=${urlDestination}&alternative=true&mode=${transportMode}&key=${creds.googleMapsKey}`;
+    let url = `https://maps.googleapis.com/maps/api/directions/json?origin=${urlOrigin}&destination=${urlDestination}&alternative=true&mode=${transportMode}&units=metric&key=${creds.googleMapsKey}`;
     return url;
 }
 
