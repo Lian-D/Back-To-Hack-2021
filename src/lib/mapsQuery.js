@@ -14,9 +14,16 @@ function createAPIrequestURL(origin, destination, transportMode) {
 
 
 mapsQuery.get = (origin, destination, timeframe) => {
-    let url = createAPIrequestURL(origin, destination, "Walking");
-    return new Promise( (resolve, reject) => {
-        req(url, (err, res, body) => {
+    let res = [];
+    let walkingUrl = createAPIrequestURL(origin, destination, "walking");
+    let bikingUrl = createAPIrequestURL(origin, destination, "bicycling");
+    let transitUrl = createAPIrequestURL(origin, destination, "transit");
+    let drivingUrl = createAPIrequestURL(origin, destination, "driving");
+
+    let APIReqArr = [];
+
+    let walkingProm = new Promise( (resolve, reject) => {
+        req(walkingUrl, (err, res, body) => {
             try {
                 let data = JSON.parse(body);
                 console.log(data.routes[0].overview_polyline);
@@ -26,7 +33,49 @@ mapsQuery.get = (origin, destination, timeframe) => {
             }
         })
     })
+
+    let bikingProm = new Promise( (resolve, reject) => {
+        req(bikingUrl, (err, res, body) => {
+            try {
+                let data = JSON.parse(body);
+                console.log(data.routes[0].overview_polyline);
+                resolve(data);
+            } catch (error) {
+                reject(error);
+            }
+        })
+    })
+
+    let transitProm = new Promise( (resolve, reject) => {
+        req(transitUrl, (err, res, body) => {
+            try {
+                let data = JSON.parse(body);
+                console.log(data.routes[0].overview_polyline);
+                resolve(data);
+            } catch (error) {
+                reject(error);
+            }
+        })
+    })
+
+    let drivingProm = new Promise( (resolve, reject) => {
+        req(drivingUrl, (err, res, body) => {
+            try {
+                let data = JSON.parse(body);
+                console.log(data.routes[0].overview_polyline);
+                resolve(data);
+            } catch (error) {
+                reject(error);
+            }
+        })
+    })
+
+    return Promise.all([drivingProm, transitProm, bikingProm, walkingProm]).then((values => {
+        console.log(values);
+        return values;
+    }))
 }
+
 mapsQuery.get("Lougheed Town Station","Metropolis at metrotown", 2);
 
 module.export = mapsQuery;
