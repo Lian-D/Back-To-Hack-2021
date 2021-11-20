@@ -20,10 +20,10 @@ class mapsQuery {
 
     async getQueryResults(origin, destination, timeframe){
     let res = [];
-    let walkingUrl = createAPIrequestURL(origin, destination, "walking");
-    let bikingUrl = createAPIrequestURL(origin, destination, "bicycling");
-    let transitUrl = createAPIrequestURL(origin, destination, "transit");
-    let drivingUrl = createAPIrequestURL(origin, destination, "driving");
+    let walkingUrl = this.createAPIrequestURL(origin, destination, "walking");
+    let bikingUrl = this.createAPIrequestURL(origin, destination, "bicycling");
+    let transitUrl = this.createAPIrequestURL(origin, destination, "transit");
+    let drivingUrl = this.createAPIrequestURL(origin, destination, "driving");
 
     let APIReqArr = [];
 
@@ -91,7 +91,8 @@ class mapsQuery {
 }
 
 let mapsQueryObj = new mapsQuery();
-let test = await mapsQueryObj.getQueryResults("Lougheed Town Station","Metropolis at metrotown", 2);
-console.log(test);
+mapsQueryObj.getQueryResults("Lougheed Town Station","Metropolis at metrotown", 2).then(arr => {
+    console.log(arr);
+});
 
 module.export = mapsQuery;
