@@ -15,7 +15,6 @@ const cyclePerKm = (16 + 50)/2;
 let minTime = 0;
 let minCarb = 0;
 
-
 class Carbon {
     constructor(){
         this.carbon = 0;
@@ -35,15 +34,16 @@ class Carbon {
         }
     }
 
-    getRecTransport(travelMode, carb, time, desired_time){
-        minCarb = carb[0];
+    getRecTransport(travelMode, dist, time, desired_time){
+        minCarb = getCarbonFootPrint(travelMode[0], dist[0]);
         minTime = time[0];
-        let recTravel = 'walking'
+        let recTravel = 'walking';
 
-        for (let i = 1; i < carb.length; i++){
-            if ( (time[i] <= minTime && carb[0] < minCarb) ||
-                (time[i] < desired_time && carb[i] < minCarb)){
-                minCarb = carb[i];
+        for (let i = 1; i < travelMode.length; i++){
+            let currCarb = getCarbonFootPrint(travelMode[i], dist[i]);
+            if ( (time[i] <= minTime && currCarb < minCarb) ||
+                (time[i] < desired_time && currCarb < minCarb)){
+                minCarb = currCarb;
                 recTravel = travelMode[i];
             }
         }
