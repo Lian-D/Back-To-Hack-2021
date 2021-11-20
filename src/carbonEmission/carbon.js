@@ -12,6 +12,8 @@ const drivingPerKm = 192;
 const transitPerKm  = 105;
 const walkPerKm = (16 + 50)/2;
 const cyclePerKm = (16 + 50)/2;
+let minTime = 0;
+let minCarb = 0;
 
 
 class Carbon {
@@ -19,18 +21,36 @@ class Carbon {
         this.carbon = 0;
     }
 
-    getCarbonFootPrint(drivingType, distance){
-        switch (drivingType) {
+    getCarbonFootPrint(travelMode, distance){
+        switch (travelMode) {
             case driving:
                 return drivingPerKm*distance;
                 break;
             case transit:
                 return transitPerKm*distance;
-            case walk:
+            case walking:
                 return walkPerKm*distance;
-            case cycle:
+            case bicycling:
                 return cyclePerKm*distance;
         }
     }
+
+    getRecTransport(travelMode, carb, time, desired_time){
+        minCarb = carb[0];
+        minTime = time[0];
+        let recTravel = 'walking'
+
+        for (let i = 1; i < carb.length; i++){
+            if ( (time[i] <= minTime && carb[0] < minCarb) ||
+                (time[i] < desired_time && carb[i] < minCarb)){
+                minCarb = carb[i];
+                recTravel = travelMode[i];
+            }
+        }
+
+        return recTravel;
+    }
 }
+
+module.exports = Carbon;
 
