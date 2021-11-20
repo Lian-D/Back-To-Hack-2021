@@ -1,20 +1,24 @@
 let http = require('http');
 const req = require('request');
-let mapsQuery = {};
+const creds = require("./mapsCred.json");
 let dist = 0; //in km
 let duration = 0; // in hr
 
-function createAPIrequestURL(origin, destination, transportMode) {
-    let urlOrigin = encodeURIComponent(origin).replace('%20', '+');
-    let urlDestination = encodeURIComponent(destination).replace('%20', '+');
-    const creds = require('./mapsCred.json');
-    console.log(creds.googleMapsKey);
-    let url = `https://maps.googleapis.com/maps/api/directions/json?origin=${urlOrigin}&destination=${urlDestination}&alternative=true&mode=${transportMode}&units=metric&key=${creds.googleMapsKey}`;
-    return url;
-}
 
+class mapsQuery {
+    constructor() {
+        this.creds = require('./mapsCred.json');
+    }
 
-mapsQuery.get = (origin, destination, timeframe) => {
+    createAPIrequestURL(origin, destination, transportMode) {
+        let urlOrigin = encodeURIComponent(origin).replace('%20', '+');
+        let urlDestination = encodeURIComponent(destination).replace('%20', '+');
+        console.log(creds.googleMapsKey);
+        let url = `https://maps.googleapis.com/maps/api/directions/json?origin=${urlOrigin}&destination=${urlDestination}&alternative=true&mode=${transportMode}&units=metric&key=${this.creds.googleMapsKey}`;
+        return url;
+    }
+
+    async getQueryResults(origin, destination, timeframe){
     let res = [];
     let walkingUrl = createAPIrequestURL(origin, destination, "walking");
     let bikingUrl = createAPIrequestURL(origin, destination, "bicycling");
@@ -82,9 +86,12 @@ mapsQuery.get = (origin, destination, timeframe) => {
     return Promise.all([drivingProm, transitProm, bikingProm, walkingProm]).then((values => {
         console.log(values);
         return values;
-    }))
+        }))
+    }
 }
 
-mapsQuery.get("Lougheed Town Station","Metropolis at metrotown", 2);
+let mapsQueryObj = new mapsQuery();
+let test = await mapsQueryObj.getQueryResults("Lougheed Town Station","Metropolis at metrotown", 2);
+console.log(test);
 
 module.export = mapsQuery;
