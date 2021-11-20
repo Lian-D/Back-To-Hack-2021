@@ -30,6 +30,7 @@ class MapsQuery {
         req(walkingUrl, (err, res, body) => {
             try {
                 let data = JSON.parse(body);
+                data.type = "walking";
                 console.log(data.routes[0].overview_polyline);
                 dist = data.routes[0].legs[0].distance.value/1000;
                 duration = data.routes[0].legs[0].duration.value/3600;
@@ -44,6 +45,7 @@ class MapsQuery {
         req(bikingUrl, (err, res, body) => {
             try {
                 let data = JSON.parse(body);
+                data.type = "bicycling";
                 console.log(data.routes[0].overview_polyline);
                 dist = data.routes[0].legs[0].distance.value/1000;
                 duration = data.routes[0].legs[0].duration.value/3600;
@@ -59,6 +61,7 @@ class MapsQuery {
             try {
                 let data = JSON.parse(body);
                 console.log(data.routes[0].overview_polyline);
+                data.type = "transit";
                 dist = data.routes[0].legs[0].distance.value/1000;
                 duration = data.routes[0].legs[0].duration.value/3600;
                 resolve(data);
@@ -72,6 +75,7 @@ class MapsQuery {
         req(drivingUrl, (err, res, body) => {
             try {
                 let data = JSON.parse(body);
+                data.type = "driving";
                 console.log(data.routes[0].overview_polyline);
                 dist = data.routes[0].legs[0].distance.value/1000;
                 duration = data.routes[0].legs[0].duration.value/3600;
