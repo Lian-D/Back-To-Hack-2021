@@ -22,14 +22,14 @@ class Carbon {
 
     getCarbonFootPrint(travelMode, distance){
         switch (travelMode) {
-            case driving:
+            case "driving":
                 return drivingPerKm*distance;
                 break;
-            case transit:
+            case "transit":
                 return transitPerKm*distance;
-            case walking:
+            case "walking":
                 return walkPerKm*distance;
-            case bicycling:
+            case "bicycling":
                 return cyclePerKm*distance;
         }
     }

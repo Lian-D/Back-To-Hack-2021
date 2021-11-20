@@ -1,11 +1,10 @@
-let http = require('http');
 const req = require('request');
 const creds = require("./mapsCred.json");
 let dist = 0; //in km
 let duration = 0; // in hr
 
 
-class mapsQuery {
+class MapsQuery {
     constructor() {
         this.creds = require('./mapsCred.json');
     }
@@ -90,9 +89,4 @@ class mapsQuery {
     }
 }
 
-let mapsQueryObj = new mapsQuery();
-mapsQueryObj.getQueryResults("Lougheed Town Station","Metropolis at metrotown", 2).then(arr => {
-    console.log(arr);
-});
-
-module.export = mapsQuery;
+module.exports = MapsQuery;
