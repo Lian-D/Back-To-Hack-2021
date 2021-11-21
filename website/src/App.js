@@ -4,8 +4,8 @@ import {GoogleMap, withScriptjs, withGoogleMap, Polyline} from "react-google-map
 
 //const WrappedMap = withScriptjs(withGoogleMap((props) => (<GoogleMap defaultZoom={10} defaultCenter={{lat: 43, lng: -79}}/>)));
 const pathCoordinates = [
-    { lat: 49, lng: -123 },
-    { lat: 52, lng: -125}
+    { lat: 49.26, lng: -123.246 },
+    { lat: 49.28, lng: -123.117}
 ];
 function Map(){
     return (
@@ -43,7 +43,7 @@ export default function App() {
 
         <div style={{width: '100vw', height: '100vh'}}>
             <WrappedMap
-                googleMapURL = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCVtN2BiacKgdB6caI0qBEDiiYyVXauDLw&v=3.exp&libraries=geometry,drawing,places'
+                googleMapURL = 'https://maps.googleapis.com/maps/api/js?key=${your_key}&v=3.exp&libraries=geometry,drawing,places'
                 loadingElement= {<div style={{height: "100%"}} />}
                 containerElement = {<div style={{height: "100%"}} />}
                 mapElement = {<div style={{height: "100%"}} />}
