@@ -1,4 +1,4 @@
-# Back-To-Hack-2021: Go Green
+# Back To Hacking 2021: Go Green
 
 # Project Motivation
 Environmental problems are always a hot topic. We want to let everyone help the environment by reducing the amount of carbon footprints in their daily travel, so we come up with the idea to create a Google app with carbon footprints.
